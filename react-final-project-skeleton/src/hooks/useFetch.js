@@ -7,7 +7,7 @@ export const useFetch = (endpoint, options) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  (useEffect = () => {
+  useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       setError(null);
@@ -25,8 +25,7 @@ export const useFetch = (endpoint, options) => {
       }
     };
     fetchData();
-  }),
-    [endpoint, options];
+  }, [endpoint, options]);
 
   return { data, loading, error };
 };

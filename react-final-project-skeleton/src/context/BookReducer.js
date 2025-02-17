@@ -10,7 +10,7 @@ export const bookReducer = (state, action) => {
         books: state.books.map((book) =>
           book.id === action.payload.id ? { ...books, ...action.payload } : book
         ),
-      };
+      };w
     case 'DELETE_BOOKS':
       return {
         ...state,

@@ -1,11 +1,40 @@
-import { useReducer } from 'react';
+import { Children, useContext, useEffect, useReducer } from 'react';
 import { bookReducer } from './BookReducer';
 
-export const BookProvider = () => {
+export const BookProvider = (children) => {
   const [state, dispatch] = useReducer(bookReducer, { books: [] });
-  cosnt[(filterParams, setFilterParams)] = useState({ genre: '', search: '' });
+  const [filterParams, setFilterParams] = useState({ genre: '', search: '' });
   const queryString = new URLSearchParams(filterParams).toString();
-  const { data, loading, error } = useFetch(`/books?${queryString}`);
+  const { data, loading, error } = useFetch(`/books?${queryString}`); //API 매서드 따로 지정 안할경우 기본값 GET
 
-  return <></>;
+  useEffect(() => {
+    if (data) {
+      dispatch({ type: 'SET_BOOKS', payload: data });
+    }
+  }, [data]);
+
+  const setGenre = () => {
+    setFilterParams((prev) => ({ ...prev, genre }));
+  };
+
+  const setSearch = () => {
+    setFilterParams((prev) => ({ ...prev, search }));
+  };
+
+  return (
+    <BookContext.Provider
+      value={{
+        books: state.books,
+        dispatch,
+        loading,
+        error,
+        setGenre,
+        setSearch,
+      }}
+    >
+      {children}
+    </BookContext.Provider>
+  );
 };
+
+export const useBookContext = () => useContext(BookContext);
