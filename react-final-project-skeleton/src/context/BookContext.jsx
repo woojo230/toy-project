@@ -1,7 +1,16 @@
-import { Children, useContext, useEffect, useReducer } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react';
 import { bookReducer } from './BookReducer';
+import { useFetch } from '../hooks/useFetch';
 
-export const BookProvider = (children) => {
+const BookContext = createContext();
+
+export const BookProvider = ({ children }) => {
   const [state, dispatch] = useReducer(bookReducer, { books: [] });
   const [filterParams, setFilterParams] = useState({ genre: '', search: '' });
   const queryString = new URLSearchParams(filterParams).toString();
