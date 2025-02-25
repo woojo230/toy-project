@@ -1,8 +1,8 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useReducer,
+  useEffect,
   useState,
 } from 'react';
 import { bookReducer } from './BookReducer';
@@ -14,7 +14,7 @@ export const BookProvider = ({ children }) => {
   const [state, dispatch] = useReducer(bookReducer, { books: [] });
   const [filterParams, setFilterParams] = useState({ genre: '', search: '' });
   const queryString = new URLSearchParams(filterParams).toString();
-  const { data, loading, error } = useFetch(`/books?${queryString}`); //API 매서드 따로 지정 안할경우 기본값 GET
+  const { data, loading, error } = useFetch(`/books?${queryString}`);
 
   useEffect(() => {
     if (data) {
@@ -22,11 +22,11 @@ export const BookProvider = ({ children }) => {
     }
   }, [data]);
 
-  const setGenre = () => {
+  const setGenre = (genre) => {
     setFilterParams((prev) => ({ ...prev, genre }));
   };
 
-  const setSearch = () => {
+  const setSearch = (search) => {
     setFilterParams((prev) => ({ ...prev, search }));
   };
 

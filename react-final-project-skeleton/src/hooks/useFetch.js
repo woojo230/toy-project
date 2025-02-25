@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const API_BASE_URL = 'http://localhost:3000';
 
@@ -14,7 +14,7 @@ export const useFetch = (endpoint, options) => {
       try {
         const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
         if (!response.ok) {
-          throw new Error('실패 이 자식아');
+          throw new Error('Failed to fetch data');
         }
         const result = await response.json();
         setData(result);
@@ -24,6 +24,7 @@ export const useFetch = (endpoint, options) => {
         setLoading(false);
       }
     };
+
     fetchData();
   }, [endpoint, options]);
 
